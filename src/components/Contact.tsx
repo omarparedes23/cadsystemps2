@@ -3,7 +3,7 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
 
-const WHATSAPP_NUMBER = "51999999999"; // Cambiar por número real
+const WHATSAPP_NUMBER = "51916484982"; // Cambiar por número real
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hola, me interesa conocer más sobre sus servicios de consultoría tecnológica."
 );
