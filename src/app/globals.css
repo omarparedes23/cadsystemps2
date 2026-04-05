@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg-primary: #030712;
+  --color-bg-secondary: #0b0f19;
+  --color-accent-cyan: #22d3ee;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* Fonts — resolved at runtime from next/font CSS vars on <html> */
+  --font-syne: var(--font-syne);
+  --font-inter: var(--font-inter);
+
+  /* Shadows */
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 4px 20px -4px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px -5px rgba(34, 211, 238, 0.3);
+  --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #030712;
+  color: #f8fafc;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hero background grid */
+.hero-grid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Radial gradient utility */
+.bg-radial-cyan {
+  background: radial-gradient(
+    ellipse at 70% 10%,
+    rgba(34, 211, 238, 0.08) 0%,
+    transparent 60%
+  );
+}
+
+.bg-radial-blue {
+  background: radial-gradient(
+    ellipse at 20% 90%,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 60%
+  );
+}
+
+/* Spotlight effect for cards */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(34, 211, 238, 0.06),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
