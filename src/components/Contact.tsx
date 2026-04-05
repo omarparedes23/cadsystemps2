@@ -16,8 +16,8 @@ const contactItems = [
   },
   {
     icon: Phone,
-    label: "+51 999 999 999",
-    href: "tel:+51999999999",
+    label: "+51 916 484 982",
+    href: "tel:+51916484982",
   },
   {
     icon: MapPin,
