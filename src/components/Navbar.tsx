@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -11,27 +11,51 @@ const links = [
   { label: "Contacto", href: "#contacto" },
 ];
 
-export default function Navbar({
-  activeTab = "inicio",
-  onTabChange,
-}: {
-  activeTab?: string;
-  onTabChange?: (tab: string) => void;
-}) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
 
+  /* Scroll background */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleLinkClick = (href: string) => {
-    setMobileOpen(false);
-    const tab = href.replace("#", "");
-    onTabChange?.(tab);
-  };
+  /* IntersectionObserver for active section */
+  useEffect(() => {
+    const sections = links.map((l) => document.querySelector(l.href));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            if (id) setActiveSection(id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+
+    sections.forEach((sec) => {
+      if (sec) observer.observe(sec);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleLinkClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      setMobileOpen(false);
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+    []
+  );
 
   return (
     <motion.header
@@ -41,41 +65,23 @@ export default function Navbar({
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div
-        className="transition-all duration-300"
-        style={{
-          backdropFilter: scrolled ? "blur(20px)" : "blur(0px)",
-          backgroundColor: scrolled ? "rgba(3,7,18,0.8)" : "transparent",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.05)"
-            : "1px solid transparent",
-        }}
+        className={cn(
+          "transition-all duration-300",
+          scrolled && "backdrop-blur-xl bg-bg-primary/80 border-b border-white/5"
+        )}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <a
               href="#inicio"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick("#inicio");
-              }}
+              onClick={(e) => handleLinkClick(e, "#inicio")}
               className="flex items-center gap-3 group"
             >
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-all duration-300"
-                style={{
-                  background: "rgba(34,211,238,0.1)",
-                  border: "1px solid rgba(34,211,238,0.2)",
-                  color: "#22d3ee",
-                  fontFamily: "var(--font-syne)",
-                }}
-              >
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold font-display bg-accent/10 border border-accent/20 text-accent transition-all duration-300">
                 C
               </div>
-              <span
-                className="font-bold text-sm tracking-tight text-white"
-                style={{ fontFamily: "var(--font-syne)" }}
-              >
+              <span className="font-bold text-sm tracking-tight text-white font-display">
                 CAD SYSTEMPS
               </span>
             </a>
@@ -83,40 +89,20 @@ export default function Navbar({
             {/* Desktop links */}
             <nav className="hidden md:flex items-center gap-8">
               {links.map((link) => {
-                const isActive = activeTab === link.href.replace("#", "");
+                const isActive = activeSection === link.href.replace("#", "");
                 return (
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.href);
-                    }}
-                    className="text-sm font-medium transition-colors duration-200 relative"
-                    style={{
-                      color: isActive ? "#22d3ee" : "#94a3b8",
-                      fontFamily: "var(--font-inter)",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) (e.target as HTMLElement).style.color = "#f8fafc";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) (e.target as HTMLElement).style.color = "#94a3b8";
-                    }}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className={cn(
+                      "text-sm font-medium transition-colors duration-200 relative font-body",
+                      isActive ? "text-accent" : "text-text-secondary hover:text-text-primary"
+                    )}
                   >
                     {link.label}
                     {isActive && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          bottom: "-4px",
-                          left: 0,
-                          right: 0,
-                          height: "2px",
-                          borderRadius: "9999px",
-                          background: "#22d3ee",
-                        }}
-                      />
+                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-accent" />
                     )}
                   </a>
                 );
@@ -126,26 +112,8 @@ export default function Navbar({
             {/* CTA desktop */}
             <a
               href="#contacto"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick("#contacto");
-              }}
-              className="hidden md:inline-flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
-              style={{
-                border: "1px solid rgba(255,255,255,0.2)",
-                color: "#f8fafc",
-                fontFamily: "var(--font-inter)",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(34,211,238,0.6)";
-                el.style.color = "#22d3ee";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(255,255,255,0.2)";
-                el.style.color = "#f8fafc";
-              }}
+              onClick={(e) => handleLinkClick(e, "#contacto")}
+              className="hidden md:inline-flex items-center px-5 py-2 rounded-full text-sm font-medium font-body transition-all duration-200 border border-white/20 text-text-primary hover:border-accent/60 hover:text-accent"
             >
               Contactar
             </a>
@@ -154,7 +122,8 @@ export default function Navbar({
             <button
               className="md:hidden text-white p-1"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
+              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? (
                 <X size={20} strokeWidth={1.5} />
@@ -174,59 +143,32 @@ export default function Navbar({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="md:hidden mx-4 mt-2 rounded-2xl overflow-hidden"
-            style={{
-              background: "#030712",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
+            className="md:hidden mx-4 mt-2 rounded-2xl overflow-hidden bg-bg-primary border border-white/10"
           >
-            <nav className="flex flex-col p-4 gap-1">
+            <nav className="flex flex-col p-4 gap-1" role="navigation" aria-label="Navegación móvil">
               {links.map((link) => {
-                const isActive = activeTab === link.href.replace("#", "");
+                const isActive = activeSection === link.href.replace("#", "");
                 return (
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.href);
-                    }}
-                    className="px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200"
-                    style={{
-                      color: isActive ? "#22d3ee" : "#94a3b8",
-                      background: isActive ? "rgba(34,211,238,0.06)" : "transparent",
-                      fontFamily: "var(--font-inter)",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        (e.currentTarget as HTMLElement).style.color = "#f8fafc";
-                        (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.05)";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        (e.currentTarget as HTMLElement).style.color = "#94a3b8";
-                        (e.currentTarget as HTMLElement).style.background = "transparent";
-                      }
-                    }}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className={cn(
+                      "px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 font-body",
+                      isActive
+                        ? "text-accent bg-accent/6"
+                        : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                    )}
                   >
                     {link.label}
                   </a>
                 );
               })}
-              <div className="mt-2 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="mt-2 pt-2 border-t border-white/6">
                 <a
                   href="#contacto"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleLinkClick("#contacto");
-                  }}
-                  className="block px-4 py-3 rounded-lg text-sm font-medium text-center"
-                  style={{
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    color: "#f8fafc",
-                    fontFamily: "var(--font-inter)",
-                  }}
+                  onClick={(e) => handleLinkClick(e, "#contacto")}
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-center font-body border border-white/20 text-text-primary hover:border-accent/60 hover:text-accent transition-all duration-200"
                 >
                   Contactar
                 </a>
@@ -237,4 +179,9 @@ export default function Navbar({
       </AnimatePresence>
     </motion.header>
   );
+}
+
+/* cn utility */
+function cn(...classes: (string | false | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
 }

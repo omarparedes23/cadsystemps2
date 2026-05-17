@@ -7,13 +7,9 @@ import { ArrowRight, MessageCircle, Terminal, Cpu, TrendingUp } from "lucide-rea
 function MagneticButton({
   children,
   className,
-  style,
-  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
@@ -40,10 +36,9 @@ function MagneticButton({
   return (
     <motion.button
       ref={ref}
-      style={{ x: springX, y: springY, ...style }}
+      style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
       className={className}
     >
       {children}
@@ -65,11 +60,10 @@ function HeroVisual() {
     <div className="relative w-full h-full min-h-[400px] flex items-center justify-center">
       {/* Glow behind card */}
       <div
-        className="absolute inset-0 rounded-2xl"
+        className="absolute inset-0 rounded-2xl blur-[40px]"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.1) 0%, transparent 70%)",
-          filter: "blur(40px)",
+            "radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.1) 0%, transparent 70%)",
         }}
       />
 
@@ -77,15 +71,10 @@ function HeroVisual() {
       <motion.div
         animate={mounted ? { y: [0, -10, 0] } : {}}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="relative w-full max-w-sm"
+        className="relative w-full max-w-sm rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] backdrop-blur-xl"
         style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: "16px",
           boxShadow:
-            "0 0 0 1px rgba(255,255,255,0.06), 0 4px 20px -4px rgba(0,0,0,0.5), 0 0 40px -10px rgba(34,211,238,0.15)",
-          backdropFilter: "blur(12px)",
-          padding: "1.5rem",
+            "0 0 0 1px rgba(255,255,255,0.05), 0 4px 20px -4px rgba(0,0,0,0.6), 0 0 40px -10px rgba(59,130,246,0.12)",
         }}
       >
         {/* Card header */}
@@ -95,57 +84,48 @@ function HeroVisual() {
             <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
             <div className="w-3 h-3 rounded-full bg-green-500/60" />
           </div>
-          <span
-            className="text-xs ml-auto"
-            style={{ color: "#64748b", fontFamily: "var(--font-inter)" }}
-          >
+          <span className="text-xs ml-auto font-body text-text-muted">
             sistema.cad — producción
           </span>
         </div>
 
         {/* Code lines */}
-        <div
-          className="text-xs leading-relaxed mb-4 font-mono"
-          style={{ color: "#64748b" }}
-        >
+        <div className="text-xs leading-relaxed mb-4 font-mono text-text-muted">
           <div>
-            <span style={{ color: "#94a3b8" }}>const</span>{" "}
-            <span style={{ color: "#22d3ee" }}>sistema</span>{" "}
-            <span style={{ color: "#94a3b8" }}>=</span>{" "}
-            <span style={{ color: "#f8fafc" }}>await</span>{" "}
+            <span className="text-text-secondary">const</span>{" "}
+            <span className="text-accent">sistema</span>{" "}
+            <span className="text-text-secondary">=</span>{" "}
+            <span className="text-text-primary">await</span>{" "}
           </div>
           <div className="pl-4">
-            <span style={{ color: "#f8fafc" }}>CAD</span>
-            <span style={{ color: "#94a3b8" }}>.</span>
-            <span style={{ color: "#22d3ee" }}>build</span>
-            <span style={{ color: "#94a3b8" }}>(&#123;</span>
+            <span className="text-text-primary">CAD</span>
+            <span className="text-text-secondary">.</span>
+            <span className="text-accent">build</span>
+            <span className="text-text-secondary">(&#123;</span>
           </div>
           <div className="pl-8">
-            <span style={{ color: "#94a3b8" }}>precision:</span>{" "}
-            <span style={{ color: "#86efac" }}>&quot;máxima&quot;</span>
-            <span style={{ color: "#94a3b8" }}>,</span>
+            <span className="text-text-secondary">precision:</span>{" "}
+            <span className="text-green-400">&quot;máxima&quot;</span>
+            <span className="text-text-secondary">,</span>
           </div>
           <div className="pl-8">
-            <span style={{ color: "#94a3b8" }}>plazo:</span>{" "}
-            <span style={{ color: "#86efac" }}>&quot;acordado&quot;</span>
-            <span style={{ color: "#94a3b8" }}>,</span>
+            <span className="text-text-secondary">plazo:</span>{" "}
+            <span className="text-green-400">&quot;acordado&quot;</span>
+            <span className="text-text-secondary">,</span>
           </div>
           <div className="pl-8">
-            <span style={{ color: "#94a3b8" }}>soporte:</span>{" "}
-            <span style={{ color: "#fbbf24" }}>true</span>
+            <span className="text-text-secondary">soporte:</span>{" "}
+            <span className="text-amber-400">true</span>
           </div>
           <div className="pl-4">
-            <span style={{ color: "#94a3b8" }}>&#125;)</span>
+            <span className="text-text-secondary">&#125;)</span>
           </div>
         </div>
 
         {/* Status line */}
-        <div
-          className="flex items-center gap-2 py-2 px-3 rounded-lg mb-4"
-          style={{ background: "rgba(34,211,238,0.06)", border: "1px solid rgba(34,211,238,0.12)" }}
-        >
+        <div className="flex items-center gap-2 py-2 px-3 rounded-lg mb-4 bg-accent/[0.06] border border-accent/[0.12]">
           <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs" style={{ color: "#22d3ee", fontFamily: "var(--font-inter)" }}>
+          <span className="text-xs font-body text-accent">
             Sistema en producción — operando
           </span>
         </div>
@@ -157,20 +137,13 @@ function HeroVisual() {
             return (
               <div
                 key={m.label}
-                className="flex flex-col items-center p-2 rounded-lg"
-                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+                className="flex flex-col items-center p-2 rounded-lg bg-white/[0.015] border border-white/[0.05]"
               >
-                <Icon size={14} strokeWidth={1.5} style={{ color: "#64748b", marginBottom: "4px" }} />
-                <span
-                  className="text-sm font-bold"
-                  style={{ color: "#f8fafc", fontFamily: "var(--font-syne)" }}
-                >
+                <Icon size={14} strokeWidth={1.5} className="text-text-muted mb-1" />
+                <span className="text-sm font-bold font-display text-text-primary">
                   {m.value}
                 </span>
-                <span
-                  className="text-[9px] text-center leading-tight mt-0.5"
-                  style={{ color: "#64748b", fontFamily: "var(--font-inter)" }}
-                >
+                <span className="text-[9px] text-center leading-tight mt-0.5 font-body text-text-muted">
                   {m.label}
                 </span>
               </div>
@@ -183,16 +156,11 @@ function HeroVisual() {
       <motion.div
         animate={mounted ? { y: [0, -6, 0] } : {}}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -top-4 -right-4 hidden lg:flex items-center gap-2 px-3 py-2 rounded-full"
-        style={{
-          background: "rgba(11,15,25,0.9)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          backdropFilter: "blur(12px)",
-          boxShadow: "0 4px 20px -4px rgba(0,0,0,0.5)",
-        }}
+        className="absolute -top-4 -right-4 hidden lg:flex items-center gap-2 px-3 py-2 rounded-full bg-bg-secondary/90 border border-white/[0.06] backdrop-blur-xl"
+        style={{ boxShadow: "0 4px 20px -4px rgba(0,0,0,0.6)" }}
       >
         <div className="w-2 h-2 rounded-full bg-emerald-400" />
-        <span className="text-xs" style={{ color: "#94a3b8", fontFamily: "var(--font-inter)" }}>
+        <span className="text-xs font-body text-text-secondary">
           Entrega puntual
         </span>
       </motion.div>
@@ -200,16 +168,15 @@ function HeroVisual() {
   );
 }
 
-export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => void }) {
+export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-[90vh] flex items-center overflow-hidden hero-grid"
-      style={{ background: "#030712" }}
+      className="relative min-h-[90vh] flex items-center overflow-hidden hero-grid bg-bg-primary"
     >
       {/* Background gradients */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="bg-radial-cyan absolute inset-0" />
+        <div className="bg-radial-accent absolute inset-0" />
         <div className="bg-radial-blue absolute inset-0" />
       </div>
 
@@ -223,10 +190,7 @@ export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => v
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <span
-                className="inline-block text-xs font-semibold tracking-[0.2em] uppercase mb-6"
-                style={{ color: "#22d3ee", fontFamily: "var(--font-inter)" }}
-              >
+              <span className="inline-block eyebrow mb-6">
                 Consultoría Tecnológica en Lima
               </span>
             </motion.div>
@@ -236,21 +200,13 @@ export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => v
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none tracking-tight mb-6"
-              style={{ fontFamily: "var(--font-syne)" }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-6 font-display text-text-primary"
             >
-              <span style={{ color: "#f8fafc" }}>Tu visión,</span>
+              Tu visión,
               <br />
-              <span style={{ color: "#f8fafc" }}>ejecutada con</span>
+              ejecutada con
               <br />
-              <span
-                style={{
-                  background: "linear-gradient(180deg, #f8fafc 0%, rgba(248,250,252,0.6) 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
+              <span className="bg-gradient-to-b from-text-primary to-text-primary/60 bg-clip-text text-transparent">
                 precisión digital.
               </span>
             </motion.h1>
@@ -260,8 +216,7 @@ export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => v
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
-              className="text-lg md:text-xl leading-relaxed max-w-xl mb-10"
-              style={{ color: "#94a3b8", fontFamily: "var(--font-inter)" }}
+              className="text-lg md:text-xl leading-relaxed max-w-xl mb-10 font-body text-text-secondary"
             >
               Desarrollamos sistemas a medida, capacitamos a tu equipo y
               modernizamos tu infraestructura. Resultados desde el primer mes.
@@ -275,44 +230,21 @@ export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => v
               className="flex flex-wrap gap-4"
             >
               {/* Primary CTA — magnetic */}
-              <MagneticButton
-                onClick={() => onTabChange?.("servicios")}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300"
-                style={{
-                  background: "#22d3ee",
-                  color: "#030712",
-                  fontFamily: "var(--font-inter)",
-                  cursor: "pointer",
-                }}
-              >
-                Explorar soluciones
-                <ArrowRight size={16} strokeWidth={1.5} />
+              <MagneticButton className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300 bg-accent text-bg-primary font-body cursor-pointer">
+                <a href="#servicios" className="flex items-center gap-2">
+                  Explorar soluciones
+                  <ArrowRight size={16} strokeWidth={1.5} />
+                </a>
               </MagneticButton>
 
               {/* Secondary CTA */}
-              <button
-                onClick={() => onTabChange?.("contacto")}
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium transition-all duration-300"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#f8fafc",
-                  backdropFilter: "blur(8px)",
-                  fontFamily: "var(--font-inter)",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-                }}
+              <a
+                href="#contacto"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 bg-white/5 border border-white/10 text-text-primary backdrop-blur-sm font-body hover:bg-white/10 hover:border-white/20"
               >
                 <MessageCircle size={16} strokeWidth={1.5} />
                 Hablemos
-              </button>
+              </a>
             </motion.div>
           </div>
 
@@ -331,9 +263,7 @@ export default function Hero({ onTabChange }: { onTabChange?: (tab: string) => v
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{
-          background: "linear-gradient(to bottom, transparent, #030712)",
-        }}
+        style={{ background: "linear-gradient(to bottom, transparent, #0a0a0a)" }}
       />
     </section>
   );

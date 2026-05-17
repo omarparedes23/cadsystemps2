@@ -7,95 +7,42 @@ const links = [
   { label: "Contacto", href: "#contacto" },
 ];
 
-export default function Footer({ onTabChange }: { onTabChange?: (tab: string) => void }) {
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer
-      style={{
-        padding: "3rem 0",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        background: "#030712",
-      }}
-    >
+    <footer className="py-12 border-t border-white/5 bg-bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Top row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           {/* Logo */}
-          <button
-            onClick={() => onTabChange?.("inicio")}
-            className="flex items-center gap-3"
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
-          >
-            <div
-              style={{
-                width: "28px",
-                height: "28px",
-                borderRadius: "8px",
-                background: "rgba(34,211,238,0.1)",
-                border: "1px solid rgba(34,211,238,0.2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#22d3ee",
-                fontSize: "12px",
-                fontWeight: 700,
-                fontFamily: "var(--font-syne)",
-              }}
-            >
+          <a href="#inicio" className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold font-display bg-accent/10 border border-accent/20 text-accent">
               C
             </div>
-            <span
-              style={{
-                fontFamily: "var(--font-syne)",
-                fontWeight: 700,
-                fontSize: "0.875rem",
-                color: "#f8fafc",
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <span className="font-display font-bold text-sm text-text-primary tracking-tight">
               CAD SYSTEMPS
             </span>
-          </button>
+          </a>
 
           {/* Links */}
-          <nav className="flex items-center gap-6 flex-wrap justify-center">
+          <nav className="flex items-center gap-6 flex-wrap justify-center" aria-label="Footer">
             {links.map((link) => (
-              <button
+              <a
                 key={link.href}
-                onClick={() => onTabChange?.(link.href.replace("#", ""))}
-                className="text-sm transition-colors duration-200"
-                style={{
-                  color: "#64748b",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  fontFamily: "var(--font-inter)",
-                  padding: 0,
-                }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#f8fafc")}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#64748b")}
+                href={link.href}
+                className="text-sm font-body text-text-muted hover:text-text-primary transition-colors duration-200"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
         </div>
 
         {/* Copyright */}
-        <div
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.04)",
-            paddingTop: "1.5rem",
-            textAlign: "center",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "#64748b",
-              fontFamily: "var(--font-inter)",
-            }}
-          >
-            © 2025 CAD SYSTEMPS. Consultoría informática — Lima, Perú.
+        <div className="border-t border-white/4 pt-6 text-center">
+          <p className="text-xs font-body text-text-muted">
+            &copy; {currentYear} CAD SYSTEMPS. Consultoría informática — Lima, Perú.
           </p>
         </div>
       </div>

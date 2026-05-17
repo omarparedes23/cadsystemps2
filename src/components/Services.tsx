@@ -51,68 +51,34 @@ function ServiceCard({ service }: { service: (typeof services)[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className="spotlight-card"
+      className="spotlight-card h-full flex flex-col rounded-2xl bg-white/[0.015] cursor-default overflow-hidden transition-all duration-300"
       style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "16px",
-        background: "rgba(255,255,255,0.02)",
         border: hovered
-          ? "1px solid rgba(34,211,238,0.25)"
-          : "1px solid rgba(255,255,255,0.06)",
+          ? "1px solid rgba(59,130,246,0.2)"
+          : "1px solid rgba(255,255,255,0.05)",
         boxShadow: hovered
-          ? "0 0 30px -10px rgba(34,211,238,0.12)"
-          : "0 0 0 1px rgba(255,255,255,0.06), 0 4px 20px -4px rgba(0,0,0,0.5)",
+          ? "0 0 30px -10px rgba(59,130,246,0.1)"
+          : "0 0 0 1px rgba(255,255,255,0.05), 0 4px 20px -4px rgba(0,0,0,0.6)",
         transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        transition: "transform 300ms ease-out, border-color 300ms, box-shadow 300ms",
-        cursor: "default",
-        overflow: "hidden",
       }}
     >
       {/* Image */}
-      <div style={{ position: "relative", width: "100%", height: "180px", flexShrink: 0 }}>
+      <div className="relative w-full h-[180px] flex-shrink-0">
         <Image
           src={service.image}
           alt={service.title}
           fill
-          style={{ objectFit: "cover" }}
+          className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to bottom, transparent 40%, rgba(11,15,25,0.85) 100%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-secondary/85" />
       </div>
 
       {/* Content */}
-      <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", flex: 1 }}>
+      <div className="p-7 flex flex-col flex-1">
         {/* Badge */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            padding: "3px 10px",
-            borderRadius: "9999px",
-            background: "rgba(34,211,238,0.1)",
-            border: "1px solid rgba(34,211,238,0.2)",
-            marginBottom: "1rem",
-            width: "fit-content",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#22d3ee",
-              fontFamily: "var(--font-inter)",
-            }}
-          >
+        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 mb-4 w-fit">
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-accent font-body">
             {service.badge}
           </span>
         </div>
@@ -121,23 +87,16 @@ function ServiceCard({ service }: { service: (typeof services)[0] }) {
         <Icon
           size={28}
           strokeWidth={1.5}
-          color="#f8fafc"
-          style={{ marginBottom: "0.75rem" }}
+          className="text-text-primary mb-3"
         />
 
         {/* Title */}
-        <h3
-          className="text-xl font-semibold mb-3"
-          style={{ color: "#f8fafc", fontFamily: "var(--font-syne)" }}
-        >
+        <h3 className="text-xl font-semibold mb-3 font-display text-text-primary">
           {service.title}
         </h3>
 
         {/* Description */}
-        <p
-          className="leading-relaxed flex-1"
-          style={{ color: "#94a3b8", fontFamily: "var(--font-inter)", fontSize: "0.9375rem" }}
-        >
+        <p className="leading-relaxed flex-1 font-body text-text-secondary text-[0.9375rem]">
           {service.desc}
         </p>
       </div>
@@ -149,29 +108,20 @@ export default function Services() {
   return (
     <section
       id="servicios"
-      style={{ padding: "8rem 0", background: "#0b0f19" }}
+      className="section-padding bg-bg-secondary"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header — centered */}
         <AnimatedSection className="text-center mb-16">
-          <span
-            className="inline-block text-xs font-semibold tracking-[0.2em] uppercase mb-4"
-            style={{ color: "#22d3ee", fontFamily: "var(--font-inter)" }}
-          >
+          <span className="inline-block eyebrow mb-4">
             Servicios
           </span>
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
-            style={{ color: "#f8fafc", fontFamily: "var(--font-syne)" }}
-          >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight font-display text-text-primary">
             Soluciones diseñadas
             <br />
             para escalar.
           </h2>
-          <p
-            className="mt-6 text-lg max-w-2xl mx-auto"
-            style={{ color: "#94a3b8", fontFamily: "var(--font-inter)" }}
-          >
+          <p className="mt-6 text-lg max-w-2xl mx-auto font-body text-text-secondary">
             Cada servicio genera valor medible en tu operación desde el primer día.
           </p>
         </AnimatedSection>

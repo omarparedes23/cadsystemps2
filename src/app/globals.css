@@ -1,53 +1,77 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-bg-primary: #030712;
-  --color-bg-secondary: #0b0f19;
-  --color-accent-cyan: #22d3ee;
+  /* Colors - Opción A: Tech Elegante */
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #111111;
+  --color-accent: #3b82f6;
+  --color-accent-light: #60a5fa;
+  --color-accent-dark: #2563eb;
 
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  --color-text-primary: #f5f0e8;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
 
-  /* Fonts — resolved at runtime from next/font CSS vars on <html> */
-  --font-syne: var(--font-syne);
-  --font-inter: var(--font-inter);
+  /* Fonts */
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
 
   /* Shadows */
-  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 4px 20px -4px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px -5px rgba(34, 211, 238, 0.3);
-  --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 4px 20px -4px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px -5px rgba(59, 130, 246, 0.25);
+  --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background-color: #030712;
-  color: #f8fafc;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: rgba(59, 130, 246, 0.25);
+  color: #f5f0e8;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
 }
 
 /* Hero background grid */
 .hero-grid {
   background-image: linear-gradient(
-      rgba(255, 255, 255, 0.02) 1px,
+      rgba(255, 255, 255, 0.015) 1px,
       transparent 1px
     ),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
-/* Radial gradient utility */
-.bg-radial-cyan {
+/* Radial gradient utilities */
+.bg-radial-accent {
   background: radial-gradient(
     ellipse at 70% 10%,
-    rgba(34, 211, 238, 0.08) 0%,
+    rgba(59, 130, 246, 0.07) 0%,
     transparent 60%
   );
 }
@@ -55,7 +79,7 @@ body {
 .bg-radial-blue {
   background: radial-gradient(
     ellipse at 20% 90%,
-    rgba(59, 130, 246, 0.05) 0%,
+    rgba(37, 99, 235, 0.04) 0%,
     transparent 60%
   );
 }
@@ -72,7 +96,7 @@ body {
   inset: 0;
   background: radial-gradient(
     400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(34, 211, 238, 0.06),
+    rgba(59, 130, 246, 0.05),
     transparent 60%
   );
   opacity: 0;
@@ -83,4 +107,58 @@ body {
 
 .spotlight-card:hover::before {
   opacity: 1;
+}
+
+/* Glass card base */
+.glass-card {
+  background: rgba(255, 255, 255, 0.015);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  transition: transform 300ms ease-out, border-color 300ms, box-shadow 300ms;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 30px -10px rgba(59, 130, 246, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+/* Eyebrow text */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+/* Focus visible styles */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }

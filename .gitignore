@@ -1,53 +1,80 @@
+# =========================
 # Dependencias
+# =========================
 node_modules/
 
-# Next.js build
+# =========================
+# Build / Next.js
+# =========================
 .next/
 out/
-
-# Producción
 build/
 dist/
 
+# =========================
+# TypeScript
+# =========================
+*.tsbuildinfo
+next-env.d.ts
+
+# =========================
 # Logs
-logs
+# =========================
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# =========================
 # Variables de entorno
+# =========================
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
-# Archivos del sistema
-.DS_Store
-Thumbs.db
+# =========================
+# Cache
+# =========================
+.cache/
+.turbo/
+.vercel/
 
-# Editor / IDE
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
 
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
+# =========================
+# Sistema operativo
+# =========================
+.DS_Store
+Thumbs.db
 
-# Coverage / testing
-coverage/
-
-# Cache
-.cache/
-
-# Archivos temporales
+# =========================
+# Temporales
+# =========================
 *.tmp
 *.temp
 
-# Archivos personalizados (opcional)
+# =========================
+# Claude / AI tools
+# =========================
 CLAUDE.md
+.claude/
+.atl/
 
-# Package lock (opcional: normalmente sí se sube, comenta si quieres ignorarlo)
+# =========================
+# Markdown
+# =========================
+*.md
+
+# EXCEPCION:
+# !README.md
+
+# =========================
+# Opcional
+# =========================
 # package-lock.json
