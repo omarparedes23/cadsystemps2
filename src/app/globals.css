@@ -13,7 +13,7 @@
   --color-text-muted: #71717a;
 
   /* Fonts */
-  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-display: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
 
   /* Shadows */

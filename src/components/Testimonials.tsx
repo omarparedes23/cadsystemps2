@@ -1,21 +1,20 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
 import { Quote } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "./AnimatedSection";
 
 const testimonials = [
   {
+    name: "Mariluz Rodriguez",
+    role: "Propietaria",
+    company: "Uniks Salón & Spa",
+    text: "CAD SYSTEMPS desarrolló la página web de mi salón y los resultados fueron increíbles. Desde que la lanzamos recibimos más consultas y mis clientas pueden ver todos nuestros servicios antes de visitarnos. Muy profesionales y atentos durante todo el proceso.",
+  },
+  {
     name: "Carlos Mendoza",
     role: "Gerente de Operaciones",
     company: "Grupo Logístico del Norte",
     text: "CAD SYSTEMPS transformó completamente nuestra gestión de inventario. El sistema a medida que desarrollaron redujo nuestros tiempos de proceso en un 60%. Su equipo entendió nuestras necesidades desde el primer día.",
-  },
-  {
-    name: "María Elena Vargas",
-    role: "Directora de TI",
-    company: "Clínica San Gabriel",
-    text: "La capacitación que recibió nuestro personal fue excepcional. En solo dos semanas, el equipo dominaba el nuevo sistema de gestión de pacientes. Profesionales, puntuales y con un soporte técnico impecable.",
   },
   {
     name: "Roberto Huamán",
@@ -55,11 +54,11 @@ function TestimonialCard({
 
 export default function Testimonials() {
   return (
-    <section className="section-padding bg-bg-primary">
+    <section className="section-padding bg-bg-secondary">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <span className="inline-block eyebrow mb-4">Testimonios</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight font-display text-text-primary">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-display text-text-primary">
             Lo que dicen nuestros
             <br />
             clientes.

@@ -2,30 +2,37 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Code2, GraduationCap, LineChart } from "lucide-react";
+import { Cloud, Code2, Globe, LineChart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "./AnimatedSection";
 
 const services = [
   {
-    badge: "Capacitación",
-    icon: GraduationCap,
-    image: "/images/servicios1.png",
-    title: "Capacitación en Sistemas",
-    desc: "Programas de formación personalizados para empresas y particulares. Integramos sistemas y aplicaciones para crear una infraestructura tecnológica coherente que mejora la productividad y reduce costos operativos.",
-  },
-  {
     badge: "Software",
     icon: Code2,
     image: "/images/servicios2.png",
-    title: "Desarrollo de Sistemas a Medida",
-    desc: "Nos especializamos en el desarrollo de sistemas adaptados a las necesidades específicas de tu empresa. Cada negocio es único y requiere soluciones personalizadas para optimizar procesos y alcanzar objetivos estratégicos.",
+    title: "Desarrollo de Software a Medida",
+    desc: "Sistemas adaptados exactamente a los procesos de tu empresa. Desde aplicaciones web hasta ERP completos — construimos lo que necesitas, no lo que nos es fácil vender.",
+  },
+  {
+    badge: "Web",
+    icon: Globe,
+    image: "/images/servicios1.png",
+    title: "Páginas Web para Empresas",
+    desc: "Diseño y desarrollo de sitios web profesionales optimizados para Google. Landing pages, portales corporativos y tiendas online con SEO desde el primer día.",
+  },
+  {
+    badge: "Cloud",
+    icon: Cloud,
+    image: "/images/servicios3.jpg",
+    title: "Migración a la Nube",
+    desc: "Trasladamos tu infraestructura a AWS, Azure o Google Cloud sin interrumpir tu operación. Servidores más rápidos, costos controlados y backups automáticos garantizados.",
   },
   {
     badge: "Consultoría",
     icon: LineChart,
-    image: "/images/servicios3.jpg",
-    title: "Consultoría Estratégica IT",
-    desc: "Auditamos tu infraestructura IT, identificamos cuellos de botella y trazamos hojas de ruta de modernización con ROI proyectado desde el día uno.",
+    image: "/images/servicios4.jpg",
+    title: "Consultoría IT Empresarial",
+    desc: "Auditamos tu infraestructura tecnológica, identificamos cuellos de botella y trazamos una hoja de ruta de modernización con ROI proyectado desde el primer mes.",
   },
 ];
 
@@ -63,19 +70,19 @@ function ServiceCard({ service }: { service: (typeof services)[0] }) {
       }}
     >
       {/* Image */}
-      <div className="relative w-full h-[180px] flex-shrink-0">
+      <div className="relative w-full h-[160px] flex-shrink-0">
         <Image
           src={service.image}
           alt={service.title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 768px) 100vw, 25vw"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-bg-secondary/85" />
       </div>
 
       {/* Content */}
-      <div className="p-7 flex flex-col flex-1">
+      <div className="p-6 flex flex-col flex-1">
         {/* Badge */}
         <div className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 mb-4 w-fit">
           <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-accent font-body">
@@ -84,19 +91,15 @@ function ServiceCard({ service }: { service: (typeof services)[0] }) {
         </div>
 
         {/* Icon */}
-        <Icon
-          size={28}
-          strokeWidth={1.5}
-          className="text-text-primary mb-3"
-        />
+        <Icon size={24} strokeWidth={1.5} className="text-text-primary mb-3" />
 
         {/* Title */}
-        <h3 className="text-xl font-semibold mb-3 font-display text-text-primary">
+        <h3 className="text-base font-semibold mb-2 font-display text-text-primary">
           {service.title}
         </h3>
 
         {/* Description */}
-        <p className="leading-relaxed flex-1 font-body text-text-secondary text-[0.9375rem]">
+        <p className="leading-relaxed flex-1 font-body text-text-secondary text-sm">
           {service.desc}
         </p>
       </div>
@@ -106,17 +109,12 @@ function ServiceCard({ service }: { service: (typeof services)[0] }) {
 
 export default function Services() {
   return (
-    <section
-      id="servicios"
-      className="section-padding bg-bg-secondary"
-    >
+    <section id="servicios" className="section-padding bg-bg-secondary">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header — centered */}
+        {/* Header */}
         <AnimatedSection className="text-center mb-16">
-          <span className="inline-block eyebrow mb-4">
-            Servicios
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight font-display text-text-primary">
+          <span className="inline-block eyebrow mb-4">Servicios</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-display text-text-primary">
             Soluciones diseñadas
             <br />
             para escalar.
@@ -127,7 +125,7 @@ export default function Services() {
         </AnimatedSection>
 
         {/* Cards */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {services.map((service) => (
             <StaggerItem key={service.title}>
               <ServiceCard service={service} />
