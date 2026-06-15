@@ -82,7 +82,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold font-display bg-accent/10 border border-accent/20 text-accent transition-all duration-300">
                 C
               </div>
-              <span className="font-bold text-sm tracking-tight text-white font-display">
+              <span className="font-bold text-base tracking-wider text-white font-display">
                 CAD SYSTEMPS
               </span>
             </a>

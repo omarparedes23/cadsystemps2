@@ -11,10 +11,10 @@ const testimonials = [
     text: "CAD SYSTEMPS desarrolló la página web de mi salón y los resultados fueron increíbles. Desde que la lanzamos recibimos más consultas y mis clientas pueden ver todos nuestros servicios antes de visitarnos. Muy profesionales y atentos durante todo el proceso.",
   },
   {
-    name: "Carlos Mendoza",
-    role: "Gerente de Operaciones",
-    company: "Grupo Logístico del Norte",
-    text: "CAD SYSTEMPS transformó completamente nuestra gestión de inventario. El sistema a medida que desarrollaron redujo nuestros tiempos de proceso en un 60%. Su equipo entendió nuestras necesidades desde el primer día.",
+    name: "Andrea Silva",
+    role: "Propietaria",
+    company: "Kushpa Importaciones",
+    text: "Mi tienda online quedó exactamente como la imaginaba. Puedo gestionar mis más de 1,000 productos, recibir pagos con Yape y tarjeta, y mis clientes compran desde cualquier parte del Perú. CAD SYSTEMPS lo hizo posible en tiempo récord.",
   },
   {
     name: "Roberto Huamán",

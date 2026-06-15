@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, useSpring, useMotionValue } from "framer-motion";
-import { ArrowRight, MessageCircle, Terminal, Cpu, TrendingUp } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 function MagneticButton({
   children,
@@ -50,119 +51,98 @@ function HeroVisual() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const metrics = [
-    { label: "Proyectos entregados", value: "40+", icon: TrendingUp },
-    { label: "Clientes activos", value: "18", icon: Cpu },
-    { label: "Uptime garantizado", value: "99.9%", icon: Terminal },
-  ];
-
   return (
     <div className="relative w-full h-full min-h-[400px] flex items-center justify-center">
-      {/* Glow behind card */}
+      {/* Glow behind browser */}
       <div
-        className="absolute inset-0 rounded-2xl blur-[40px]"
+        className="absolute inset-0 rounded-3xl blur-[60px] pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.1) 0%, transparent 70%)",
         }}
       />
 
-      {/* Main card */}
-      <motion.div
-        animate={mounted ? { y: [0, -10, 0] } : {}}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="relative w-full max-w-sm rounded-2xl p-6 bg-white/[0.015] border border-white/[0.06] backdrop-blur-xl"
+      {/* Browser frame */}
+      <div
+        className="relative w-full rounded-2xl overflow-hidden"
         style={{
+          border: "1px solid rgba(255,255,255,0.08)",
           boxShadow:
-            "0 0 0 1px rgba(255,255,255,0.05), 0 4px 20px -4px rgba(0,0,0,0.6), 0 0 40px -10px rgba(59,130,246,0.12)",
+            "0 0 0 1px rgba(255,255,255,0.04), 0 4px 40px -8px rgba(0,0,0,0.8), 0 0 60px -20px rgba(59,130,246,0.15)",
         }}
       >
-        {/* Card header */}
-        <div className="flex items-center gap-2 mb-4">
+        {/* Chrome bar */}
+        <div
+          className="flex items-center gap-2 px-4 py-3"
+          style={{
+            background: "rgba(17,17,17,0.95)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
           <div className="flex gap-1.5">
             <div className="w-3 h-3 rounded-full bg-red-500/60" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
             <div className="w-3 h-3 rounded-full bg-green-500/60" />
           </div>
-          <span className="text-xs ml-auto font-body text-text-muted">
-            sistema.cad — producción
-          </span>
-        </div>
-
-        {/* Code lines */}
-        <div className="text-xs leading-relaxed mb-4 font-mono text-text-muted">
-          <div>
-            <span className="text-text-secondary">const</span>{" "}
-            <span className="text-accent">sistema</span>{" "}
-            <span className="text-text-secondary">=</span>{" "}
-            <span className="text-text-primary">await</span>{" "}
-          </div>
-          <div className="pl-4">
-            <span className="text-text-primary">CAD</span>
-            <span className="text-text-secondary">.</span>
-            <span className="text-accent">build</span>
-            <span className="text-text-secondary">(&#123;</span>
-          </div>
-          <div className="pl-8">
-            <span className="text-text-secondary">precision:</span>{" "}
-            <span className="text-green-400">&quot;máxima&quot;</span>
-            <span className="text-text-secondary">,</span>
-          </div>
-          <div className="pl-8">
-            <span className="text-text-secondary">plazo:</span>{" "}
-            <span className="text-green-400">&quot;acordado&quot;</span>
-            <span className="text-text-secondary">,</span>
-          </div>
-          <div className="pl-8">
-            <span className="text-text-secondary">soporte:</span>{" "}
-            <span className="text-amber-400">true</span>
-          </div>
-          <div className="pl-4">
-            <span className="text-text-secondary">&#125;)</span>
+          <div className="flex-1 mx-3">
+            <div
+              className="rounded px-3 py-1 max-w-xs"
+              style={{ background: "rgba(255,255,255,0.06)" }}
+            >
+              <span className="text-xs font-mono text-text-muted">
+                sistema.cliente.pe/ventas
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Status line */}
-        <div className="flex items-center gap-2 py-2 px-3 rounded-lg mb-4 bg-accent/[0.06] border border-accent/[0.12]">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-body text-accent">
-            Sistema en producción — operando
-          </span>
-        </div>
+        {/* Screenshot */}
+        <Image
+          src="/images/sistema-preview.jpg"
+          alt="Sistema de gestión desarrollado por CAD SYSTEMPS — módulo de ventas"
+          width={800}
+          height={500}
+          className="w-full block"
+          priority
+        />
+      </div>
 
-        {/* Metrics */}
-        <div className="grid grid-cols-3 gap-2">
-          {metrics.map((m) => {
-            const Icon = m.icon;
-            return (
-              <div
-                key={m.label}
-                className="flex flex-col items-center p-2 rounded-lg bg-white/[0.015] border border-white/[0.05]"
-              >
-                <Icon size={14} strokeWidth={1.5} className="text-text-muted mb-1" />
-                <span className="text-sm font-bold font-display text-text-primary">
-                  {m.value}
-                </span>
-                <span className="text-[9px] text-center leading-tight mt-0.5 font-body text-text-muted">
-                  {m.label}
-                </span>
-              </div>
-            );
-          })}
+      {/* Badge — sistema en producción */}
+      <motion.div
+        animate={mounted ? { y: [0, -6, 0] } : {}}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="absolute -bottom-4 -left-4 hidden lg:flex items-center gap-2.5 px-4 py-3 rounded-xl backdrop-blur-xl"
+        style={{
+          background: "rgba(17,17,17,0.95)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 4px 20px -4px rgba(0,0,0,0.6)",
+        }}
+      >
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+          style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.2)" }}>
+          <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-xs font-semibold text-white">Sistema en producción</p>
+          <p className="text-xs text-text-muted">Entrega puntual</p>
         </div>
       </motion.div>
 
-      {/* Floating badge */}
+      {/* Badge — a medida */}
       <motion.div
         animate={mounted ? { y: [0, -6, 0] } : {}}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -top-4 -right-4 hidden lg:flex items-center gap-2 px-3 py-2 rounded-full bg-bg-secondary/90 border border-white/[0.06] backdrop-blur-xl"
-        style={{ boxShadow: "0 4px 20px -4px rgba(0,0,0,0.6)" }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="absolute -top-4 -right-4 hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl backdrop-blur-xl"
+        style={{
+          background: "rgba(17,17,17,0.95)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 4px 20px -4px rgba(0,0,0,0.6)",
+        }}
       >
-        <div className="w-2 h-2 rounded-full bg-emerald-400" />
-        <span className="text-xs font-body text-text-secondary">
-          Entrega puntual
-        </span>
+        <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+        <p className="text-xs font-medium text-text-secondary">100% a medida</p>
       </motion.div>
     </div>
   );

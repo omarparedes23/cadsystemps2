@@ -25,6 +25,17 @@ const projects: Project[] = [
     accent: "from-pink-500/20 to-rose-500/20",
     image: "/images/uniks-salon-spa.jpg",
   },
+  {
+    name: "Kushpa Importaciones",
+    type: "Tienda Online de Importaciones",
+    location: "Lima, Perú",
+    description:
+      "E-commerce completo para importadora peruana con más de 1,000 productos. Carrito de compras, pasarela de pagos (Yape, Plin, tarjeta), gestión de inventario y envío express a todo el Perú.",
+    url: "https://kushpaimportaciones.vercel.app/",
+    tags: ["E-commerce", "Tienda Online", "Pasarela de Pagos"],
+    accent: "from-indigo-500/20 to-blue-500/20",
+    image: "/images/kushpa-importaciones.jpg",
+  },
 ];
 
 function ProjectCard({ project }: { project: Project }) {
