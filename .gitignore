@@ -70,6 +70,7 @@ CLAUDE.md
 # Markdown
 # =========================
 *.md
+!data/chatbot-context.md
 
 # EXCEPCION:
 # !README.md
